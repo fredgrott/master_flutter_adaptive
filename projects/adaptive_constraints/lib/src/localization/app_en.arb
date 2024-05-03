@@ -1,0 +1,6 @@
+{
+  "appTitle": "adaptive_constraints",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
