@@ -1,6 +1,6 @@
 # adaptive_extras
 
-A new Flutter project.
+This contains the pane container widget for canonical layouts and the accessory files.
 
 ## Getting Started
 
