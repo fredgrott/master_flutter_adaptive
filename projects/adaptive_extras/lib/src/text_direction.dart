@@ -10,7 +10,5 @@ import 'package:flutter/material.dart';
 ///  isRTL() ? TextDirection.rtl: TextDirection.ltr;
 /// ```
 ///
-/// 
-///
 /// @author Fredrick Allan Grott
 bool isRTL() => Directionality.of(routeAppContext).toString().contains(TextDirection.rtl as Pattern);

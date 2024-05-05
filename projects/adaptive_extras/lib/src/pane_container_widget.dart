@@ -18,9 +18,7 @@ class PaneContainerWidget extends StatelessWidget {
   /// The color of the surface of the container. Defaults to [SurfaceColorEnum.surface].
   final SurfaceColorEnum surfaceColor;
 
-  /// The padding for the container's child widget. Defaults to [EdgeInsets.zero].
-  //final EdgeInsetsGeometry padding;
-
+  
   /// The width of the container. Defaults to [double.infinity].
   final double width;
 

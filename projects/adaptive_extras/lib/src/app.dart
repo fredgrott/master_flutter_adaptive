@@ -1,4 +1,6 @@
+import 'package:adaptive_extras/src/custom_scroll_behavior.dart';
 import 'package:adaptive_extras/src/global_context.dart';
+import 'package:adaptive-extras/src/layout_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -27,9 +29,16 @@ class MyApp extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+
+          // turn off the debug banner
           debugShowCheckedModeBanner: false,
+
+          // so we have scroll for web and all devices
+          scrollBehavior: CustomScrollBehavior(),
          
-          // used both here and for Nav 2.0 in MaterialApp.router
+          // used both here and for Nav 2.0 in MaterialApp.router so that we can use a global context
+          // for localization outside of UI in case 
+          // of implementing models
           scaffoldMessengerKey: scaffoldMessengerKey,
 
           // Providing a restorationScopeId allows the Navigator built by the
@@ -62,8 +71,8 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
+          theme: ThemeData(visualDensity: LayoutUtils.getVisualDensity(context)),
+          darkTheme: ThemeData.dark(visualDensity: LayoutUtils.getVisualDensity(context)),
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
