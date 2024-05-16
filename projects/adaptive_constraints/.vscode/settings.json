@@ -132,12 +132,7 @@
     "MD007": { "indent": 4 },
     "no-hard-tabs": true
   },
-  "markdownlint.ignore": [
-    "ignore.md",
-    "directory/ignore.md",
-    "**/ignore.md",
-    "**/*.md"
-  ],
+  
   //--End VSCode core, Markdown Lint
 
   // Github Markdown Preview settings
@@ -150,7 +145,7 @@
   "markdown.styles": [
     "https://use.fontawesome.com/releases/v5.7.1/css/all.css"
   ],
-  "markdown-preview-github-styles.lightTheme": "light+high+_contrast",
+  "markdown-preview-github-styles.lightTheme": "light_high_contrast",
   "markdown-previe-github-styles.darkTheme": "dark_high_contest",
   //--End of GitHub Markdown preview settings for Foam and
   //  VSCode core settings
@@ -394,7 +389,7 @@
 ],
 
 "licenser.license": "BSD3",
-"licenser.author": "Fredrick Allan Hrott",
+"licenser.author": "Fredrick Allan Grott",
 
 
 
