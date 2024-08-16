@@ -10,3 +10,9 @@ I am breaking this up into parts and making it small enough in units so you get 
 
 
 
+## Articles
+
+The progress towards the full adaptive scaffold and canonical layouts can be found in some articles at my substack:
+
+https://fredgrott.substack.com
+
