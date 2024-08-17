@@ -41,7 +41,7 @@
 ///
 ///   ```
 ///     Theme(
-///        data: Theme.of(context).copyWith(visualDensity: VisualDensity(horizontal: context.appWindowSize.visualHorz, verical: context.appWindowSize.cisualVert),
+///        data: Theme.of(context).copyWith(visualDensity: VisualDensity(horizontal: context.appWindowSize.visualHorz, verical: context.appWindowSize.visualVert),
 ///         child: child,
 ///     )
 ///   ```

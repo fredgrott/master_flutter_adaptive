@@ -2,15 +2,26 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+
+
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:md3_utils/md3_utils/custom_window_size.dart';
 import 'package:md3_utils/md3_utils/mq_data_ext.dart';
-import 'package:md3_utils/md3_utils/window_size.dart';
 import 'package:universal_platform/universal_platform.dart';
 
+
+
+/// A bit of tech debt handling as MediaQuery will 
+/// not give the right Size of screens for foldables and 
+/// desktop apps opening multiple windows. Thus we 
+/// instead have to use FlutterView and grab the display
+/// object to then get the screen specifics such as 
+/// size, etc.
+///
 /// Keep in mind that preventing letterboxing
-/// on androidables has to be done in the scaffold
+/// on android and iOS foldables has to be done in the scaffold
 /// via:
 /// ```
 ///  class _HomeState extends State<Home> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
@@ -36,24 +47,38 @@ import 'package:universal_platform/universal_platform.dart';
 ///    if (unfolding || logicalSize.shortestSide >= 600) {
 ///      SystemChrome.setPreferredOrientations([]);
 ///   } else if (logicalSize.shortestSide < 600) {
-///      ///SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+///      
+///  SystemChrome.setPreferredOrientations(<DeviceOrientation>[DeviceOrientation.portraitUp,]);
 ///    }
 ///  }
 ///```
 ///
-/// @author Fredick Allan Grott
-extension MQExt on BuildContext {
-  double get appAspectRatio => MediaQuery.sizeOf(this).aspectRatio;
+/// @author Fredrick Allan Grott
+extension FlutterViewDisplayExt on BuildContext {
+
+
+  ui.FlutterView get appView => View.of(this);
+
+  ui.Display? get  appDisplay => appView.display;
+
+  // set zero if null
+  double? get appWidth => appDisplay?.size.width;
+
+  // set zero if null
+  double? get appHeight => appDisplay?.size.height;
+
+  double? get appDevicePixelRatio => appDisplay?.devicePixelRatio;
+
+  List<ui.DisplayFeature> get appDisplayFeatures => appView.displayFeatures;
+
+  ui.ViewPadding get appViewPadding => appView.padding;
+
   Brightness get appBrightness => MediaQuery.platformBrightnessOf(this);
-  double get appDevicePixelRatio => MediaQuery.devicePixelRatioOf(this);
-  List<ui.DisplayFeature> get appDisplayFeatures => MediaQuery.displayFeaturesOf(this);
-  double get appHeight => MediaQuery.sizeOf(this).height;
 
   double get appPixelsPerInch => UniversalPlatform.isAndroid || UniversalPlatform.isIOS ? 150 : 96;
 
   TextScaler get appTextScaler => MediaQuery.textScalerOf(this);
-  EdgeInsets get appViewPadding => MediaQuery.viewPaddingOf(this);
-  double get appWidth => MediaQuery.sizeOf(this).width;
+
 
   Orientation get appOrientation => MediaQuery.orientationOf(this);
 
@@ -67,10 +92,11 @@ extension MQExt on BuildContext {
     }
   }
 
+
   // if higher then medium, two panes across then
   // if not higher then medium two panes stacked vertical
   // or horizontal based on mobile orientation.
-  bool get isHigherThenMedium => appWidth > WindowSize.medium.endWidthRange;
+  bool get isHigherThenMedium => appWidth! > CustomWindowSize.medium.endWidthRange;
 
   // I can re-use Microsoft's logic in the flutter
   // surface demos two pane layout to properly apply
@@ -87,17 +113,19 @@ extension MQExt on BuildContext {
 
   /// Returns an appWindowSize that contains the beginWidthRange, endWidthRange, margin,
   /// middleSpacing, and dimens
-  WindowSize get appWindowSize {
-    if (appWidth >= WindowSize.compact.endWidthRange) {
-      return WindowSize.compact;
-    } else if (appWidth >= WindowSize.medium.endWidthRange) {
-      return WindowSize.medium;
-    } else if (appWidth >= WindowSize.expanded.endWidthRange) {
-      return WindowSize.expanded;
-    } else if (appWidth >= WindowSize.large.endWidthRange) {
-      return WindowSize.large;
+  CustomWindowSize get appWindowSize {
+    if (appWidth! >= CustomWindowSize.compact.endWidthRange) {
+      return CustomWindowSize.compact;
+    } else if (appWidth! >= CustomWindowSize.medium.endWidthRange) {
+      return CustomWindowSize.medium;
+    } else if (appWidth! >= CustomWindowSize.expanded.endWidthRange) {
+      return CustomWindowSize.expanded;
+    } else if (appWidth! >= CustomWindowSize.large.endWidthRange) {
+      return CustomWindowSize.large;
     } else {
-      return WindowSize.extraLarge;
+      return CustomWindowSize.extraLarge;
     }
   }
+
+
 }
